@@ -2,7 +2,8 @@ package edu.icet.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,14 +12,14 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity
-@Table(name="item")
-public class ItemEntity {
+public class OrderItemEntity {
     @Id
-    private String code;
-    private String name;
-    private String category;
-    private Integer stock;
+    private String itemCode;
+    private Integer quentity;
     private Double price;
+
+    @ManyToOne
+    @JoinColumn(name = "orderId")
+    private OrderEntity order;
 }
