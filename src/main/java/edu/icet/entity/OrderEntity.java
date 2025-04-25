@@ -1,12 +1,12 @@
 package edu.icet.entity;
 
-import edu.icet.dto.OrderItem;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -15,14 +15,17 @@ import java.util.List;
 @Entity
 public class OrderEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-    private LocalDateTime orderDate;
+    @Temporal(TemporalType.DATE)
+    private Date orderDate;
+    private Integer totalItems;
     private Double totalAmount;
     private String status;
+
     @ManyToOne
-    @JoinColumn(name = "id")
-    private Integer customerId;
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<OrderItemEntity> orderItems;
+    @JoinColumn(name = "customer_id" ,  nullable = false)
+    private CustomerEntity customer;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderDetailsEntity> orderDetails;
 }

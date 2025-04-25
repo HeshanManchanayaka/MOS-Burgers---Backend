@@ -2,6 +2,7 @@ package edu.icet.controller;
 
 import edu.icet.dto.Item;
 import edu.icet.service.ItemService;
+import edu.icet.util.ItemCategory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,11 @@ public class ItemController {
     @GetMapping("/search-by-name/{name}")
     public List<Item> searchByName(@PathVariable String name){
         return itemService.searchByName(name);
+    }
+
+    @GetMapping("/search-by-category/{category}")
+    public List<Item> searchByCategory(@PathVariable ItemCategory category){
+        return itemService.searchByCategory(category);
     }
 
 }

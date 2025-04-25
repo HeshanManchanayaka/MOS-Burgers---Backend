@@ -4,13 +4,13 @@ import edu.icet.dto.Item;
 import edu.icet.entity.ItemEntity;
 import edu.icet.repository.ItemRepository;
 import edu.icet.service.ItemService;
+import edu.icet.util.ItemCategory;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -50,6 +50,18 @@ public class ItemServiceImpl implements ItemService {
         ArrayList<Item> itemList = new ArrayList<>();
 
         List<ItemEntity> list= repository.searchByName(name);
+
+        list.forEach(ItemEntity->{
+            itemList.add(mapper.map(ItemEntity,Item.class));
+        });
+        return itemList;
+    }
+
+    @Override
+    public List<Item> searchByCategory(ItemCategory category) {
+        ArrayList<Item> itemList = new ArrayList<>();
+
+        List<ItemEntity> list= repository.searchByCategory(category);
 
         list.forEach(ItemEntity->{
             itemList.add(mapper.map(ItemEntity,Item.class));

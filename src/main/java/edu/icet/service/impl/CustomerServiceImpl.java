@@ -18,6 +18,16 @@ public class CustomerServiceImpl implements CustomerService {
     final ModelMapper mapper;
 
     @Override
+    public Customer searchByContactNumber(String tp) {
+        return repository.findByContactNumber(tp);
+    }
+
+    @Override
+    public void deleteCustomerById(int customerId) {
+        repository.deleteById(customerId);
+    }
+
+    @Override
     public void addCustomer(Customer customer) {
         repository.save(mapper.map(customer, CustomerEntity.class));
     }

@@ -25,4 +25,14 @@ public class CustomerController {
     public List<Customer> getAll(){
         return service.getAll();
     }
+
+    @GetMapping("/search-by-contactNumber/{tp}")
+    public Customer searchByContact (@PathVariable String tp){
+        return  service.searchByContactNumber(tp);
+    }
+
+    @DeleteMapping("/delete")
+    public void deleteCuatomerById(@RequestParam int customerId){
+        service.deleteCustomerById(customerId);
+    }
 }
